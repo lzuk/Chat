@@ -11,22 +11,25 @@
     <script type="text/javascript">
 
         var myChatHub = $.connection.ChatHub;
-        myChatHub.client.hello = function (message) {
+        myChatHub.client.notifyFromServer = function (nickname, message) {
             var chatResponsesJs = document.getElementById('chatResponses');
-            chatResponsesJs.value += message;
-            chatResponsesJs.value += '\r\n';
+            chatResponsesJs.value += nickname + " - " + message + '\r\n';
         };
         $.connection.hub.start();
 
         function onSendButtonClick() {
-            var valueToSend = document.getElementById('chatTextBox').value;
-            myChatHub.server.send(valueToSend);
+            var message = document.getElementById('chatTextBox').value;
+            var nickName = document.getElementById('nickBox').value;
+            myChatHub.server.send(nickName, message);
         }
        
     </script>
 </head>
 <body>
     <form id="form1" runat="server">
+        <input id="nickBox" type="text" />
+        <label >Nick</label>
+        <br/>
         <input id="chatTextBox" type="text" />
         <input id="sendButton" type="button" value="Send" onclick="onSendButtonClick()"/>
         <br/>

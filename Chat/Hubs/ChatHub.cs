@@ -8,16 +8,9 @@ namespace Chat.Hubs
     [HubName("ChatHub")]
     public class ChatHub : Hub
     {
-        public void Hello(string message)
+        public void Send(string nickname, string message)
         {
-            Clients.All.hello(message);
+            Clients.All.notifyFromServer(nickname, message);
         }
-
-        public void Send(string message)
-        {
-            textList.Add(message);
-            Hello(message);
-        }
-        private static List<String> textList = new List<string>();
     }
 }
