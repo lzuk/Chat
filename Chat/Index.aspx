@@ -7,19 +7,18 @@
     <title>Chat</title>
     <script type="text/javascript" src="/Scripts/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="/Scripts/jquery.signalR-2.0.0.min.js"></script>
-    <script type="text/javascript" src="http://localhost:27205/signalr"></script>
+    <script type="text/javascript" src="http://localhost:27205/signalr/hubs"></script>
     <script type="text/javascript">
-        /*
-        (function () {
-            //create signal hub connection
-            $.connection.hub.url = 'http://localhost:27205/signalr/';
-            myChatHub = $.connection.ChatHub;
-            $.connection.hub.start(function () {
-                myChatHub.Send("dupa");
-                alert("komunikat poszedl");
-            });
-        })(); 
-        */
+
+        var myChatHub = $.connection.ChatHub;
+        myChatHub.client.hello = function(message) {
+            alert(message);
+        };
+        $.connection.hub.start().done(function() {
+            myChatHub.server.send("dupa");
+        });
+
+       
     </script>
 </head>
 <body>
