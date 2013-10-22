@@ -126,7 +126,7 @@
           <AutoAssignPort>True</AutoAssignPort>
           <DevelopmentServerPort>27205</DevelopmentServerPort>
           <DevelopmentServerVPath>/</DevelopmentServerVPath>
-          <IISUrl>http://localhost:27205/</IISUrl>
+          <IISUrl>http://fp-pc1598.fp.lan:27205/</IISUrl>
           <NTLMAuthentication>False</NTLMAuthentication>
           <UseCustomServer>False</UseCustomServer>
           <CustomServerUrl>
