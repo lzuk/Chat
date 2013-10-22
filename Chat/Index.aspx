@@ -13,6 +13,8 @@
         var myChatHub = $.connection.ChatHub;
         myChatHub.client.notifyFromServer = function (nickname, message) {
             var chatResponsesJs = document.getElementById('chatResponses');
+            chatResponsesJs.rows = chatResponsesJs.rows + 1;
+            chatResponsesJs.scrollTop = chatResponsesJs.scrollHeight;
             chatResponsesJs.value += nickname + " - " + message + '\r\n';
         };
         $.connection.hub.start();
@@ -33,7 +35,7 @@
         <input id="chatTextBox" type="text" />
         <input id="sendButton" type="button" value="Send" onclick="onSendButtonClick()"/>
         <br/>
-        <textarea id="chatResponses" cols="20" rows="2" readonly="readonly"></textarea>
+        <textarea id="chatResponses" cols="20" rows="1" readonly="readonly"></textarea>
 
     </form>   
 </body>
