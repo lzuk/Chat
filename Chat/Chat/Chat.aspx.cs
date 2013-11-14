@@ -17,7 +17,7 @@ namespace Chat.Chat
         protected void Signout_Click(object sender, EventArgs e)
         {
             FormsAuthentication.SignOut();
-            Response.Redirect("Account\\Login.aspx");
+            Response.Redirect(@"Account\Login.aspx");
         }
     }
 }

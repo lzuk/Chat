@@ -60,8 +60,8 @@
         <br/>
         <textarea id="chatResponses" cols="20" rows="1" readonly="readonly"></textarea>
         <textarea id="chatUsers" cols="20" rows="1" readonly="readonly"></textarea>
-        <asp:Button ID="singOutButton" OnClick="Signout_Click" 
-       Text="Sign Out" runat="server" />
+        <asp:Button ID="singOutButton" OnClick="Signout_Click"
+        Text="Sign Out" runat="server" />
     </div>
     </form>
 </body>
