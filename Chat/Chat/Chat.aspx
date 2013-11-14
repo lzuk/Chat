@@ -17,6 +17,20 @@
             chatResponsesJs.scrollTop = chatResponsesJs.scrollHeight;
             chatResponsesJs.value += nickname + " - " + message + '\r\n';
         };
+        myChatHub.client.newUserList = function(userList) {
+            var chatUserList = document.getElementById('chatUsers');
+            chatUserList.value = "";
+            chatUserList.rows = userList.length;
+            for (var x = 0 ; x < userList.length; x++) {
+                chatUserList.value += userList[x] + '\r\n';
+            }
+        };
+
+        myChatHub.client.userDisconnected = function (nickname) {
+            var chatResponsesJs = document.getElementById('chatResponses');
+            chatResponsesJs.rows = chatResponsesJs.rows + 1;
+            chatResponsesJs.value += nickname + " has left" + '\r\n';
+        };
 
         myChatHub.client.newUserJoined = function (nickname) {
             var chatResponsesJs = document.getElementById('chatResponses');
@@ -32,9 +46,8 @@
 
         function onSendButtonClick() {
             var message = document.getElementById('chatTextBox').value;
-            var nickName = document.getElementById('nickBox').value;
 
-            myChatHub.server.send(nickName, message);
+            myChatHub.server.send(message);
         }
 
     </script>
@@ -42,9 +55,6 @@
 <body>
     <form id="form1" runat="server">
     <div>
-            <input id="nickBox" type="text" />
-        <label >Nick</label>
-        <br/>
         <input id="chatTextBox" type="text" />
         <input id="sendButton" type="button" value="Send" onclick="onSendButtonClick()"/>
         <br/>
