@@ -5,9 +5,13 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="/Content/login.css" rel="stylesheet" type="text/css"/>
+
     <script type="text/javascript" src="../Scripts/jquery-2.0.3.min.js"></script>
     <script type="text/javascript" src="../Scripts/jquery.signalR-2.0.0.min.js"></script>
     <script type="text/javascript" src="../signalr/hubs"></script>
+    <script type="text/javascript" src="../Scripts/bootstrap.min.js"></script>
     <script type="text/javascript">
 
         var myChatHub = $.connection.ChatHub;
@@ -47,7 +51,6 @@
 
         function onSendButtonClick() {
             var message = document.getElementById('chatTextBox').value;
-
             myChatHub.server.send(message);
         }
 

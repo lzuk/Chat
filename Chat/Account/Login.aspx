@@ -32,7 +32,7 @@
                 <asp:Label id="msg" runat="server" Text="" Visible="false"></asp:Label>
                 <asp:Button class="btn btn-lg btn-block purple-bg" runat="server" onclick="btnSubmit_Click" Text="Sign in">
                     </asp:Button>
-                <a class="forgotLnk" href="http://www.jquery2dotnet.com">I can't access my account</a>
+                <a class="forgotLnk" href="http://www.google.pl">I can't access my account</a>
                 <div class="or-box row-block">
                     <div class="row">
                         <div class="col-md-12 row-block">
