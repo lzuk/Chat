@@ -28,16 +28,7 @@ namespace Chat {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox nickBox;
-        
-        /// <summary>
-        /// passwordBox control.
-        /// </summary>
-        /// <remarks>
-        /// Auto-generated field.
-        /// To modify move field declaration from designer file to code-behind file.
-        /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox passwordBox;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText nickBox;
         
         /// <summary>
         /// mailBox control.
@@ -46,15 +37,24 @@ namespace Chat {
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.TextBox mailBox;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText mailBox;
         
         /// <summary>
-        /// sendButton control.
+        /// passwordBox control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.WebControls.Button sendButton;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword passwordBox;
+        
+        /// <summary>
+        /// msg control.
+        /// </summary>
+        /// <remarks>
+        /// Auto-generated field.
+        /// To modify move field declaration from designer file to code-behind file.
+        /// </remarks>
+        protected global::System.Web.UI.WebControls.Label msg;
     }
 }
