@@ -6,9 +6,9 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css">
-    <link href="/Content/login.css" rel="stylesheet" type="text/css">
+    <script type="text/javascript" src="../Scripts/jquery-2.0.3.min.js"></script>
+    <link href="/Content/bootstrap.css" rel="stylesheet" type="text/css"/>
+    <link href="/Content/login.css" rel="stylesheet" type="text/css"/>
 </head>
 <body>
     <form id="form1" runat="server">

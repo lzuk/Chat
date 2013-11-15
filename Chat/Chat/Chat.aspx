@@ -5,8 +5,8 @@
 <html xmlns="http://www.w3.org/1999/xhtml">
 <head runat="server">
     <title></title>
-        <script type="text/javascript" src="http://code.jquery.com/jquery-2.0.3.min.js"></script>
-    <script type="text/javascript" src="http://ajax.aspnetcdn.com/ajax/signalr/jquery.signalr-1.1.3.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery-2.0.3.min.js"></script>
+    <script type="text/javascript" src="../Scripts/jquery.signalR-2.0.0.min.js"></script>
     <script type="text/javascript" src="../signalr/hubs"></script>
     <script type="text/javascript">
 
@@ -17,6 +17,7 @@
             chatResponsesJs.scrollTop = chatResponsesJs.scrollHeight;
             chatResponsesJs.value += nickname + " - " + message + '\r\n';
         };
+
         myChatHub.client.newUserList = function(userList) {
             var chatUserList = document.getElementById('chatUsers');
             chatUserList.value = "";

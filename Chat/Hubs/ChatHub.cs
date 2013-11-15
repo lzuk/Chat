@@ -85,7 +85,7 @@ namespace Chat.Hubs
             lock (user.ConnectionIds)
             {
                 user.ConnectionIds.Add(connectionId);
-                //Clients.AllExcept(user.ConnectionIds.ToArray()).refreshUserList();
+                Clients.AllExcept(user.ConnectionIds.ToArray()).newUserJoined(userName);
             }
         }
         private static readonly ConcurrentDictionary<string, User> Users = new ConcurrentDictionary<string, User>();
