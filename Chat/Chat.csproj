@@ -164,6 +164,7 @@
     <Compile Include="Chat\Chat.aspx.designer.cs">
       <DependentUpon>Chat.aspx</DependentUpon>
     </Compile>
+    <Compile Include="Chat\DatabaseAccessor.cs" />
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="default.aspx.cs">
       <DependentUpon>default.aspx</DependentUpon>

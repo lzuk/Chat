@@ -11,7 +11,7 @@ namespace Chat
     {
         protected void Page_Load(object sender, EventArgs e)
         {
-            Server.Transfer("Chat\\Chat.aspx", true);
+            Server.Transfer(@"/Chat/Chat.aspx", true);
         }
     }
 }

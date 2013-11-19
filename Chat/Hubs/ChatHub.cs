@@ -6,6 +6,9 @@ using System.Threading.Tasks;
 using System.Web;
 using Microsoft.AspNet.SignalR;
 using Microsoft.AspNet.SignalR.Hubs;
+using System;
+using Chat.Chat;
+using System.Web.Security;
 
 namespace Chat.Hubs
 {
@@ -16,12 +19,19 @@ namespace Chat.Hubs
         {
             if (HttpContext.Current.User == null && !HttpContext.Current.User.Identity.IsAuthenticated)
                 return;
-            Clients.All.newMessage(HttpContext.Current.User.Identity.Name, message);
+            string username = HttpContext.Current.User.Identity.Name;
+            Clients.All.newMessage(username, message);
+
+            Task saveMsg = new Task(() => DatabaseAccessor.Instance.SaveMsgToDatabase(Membership.GetUser(username), message));
+            saveMsg.Start();
         }
+
 
         public void SendToSpecified(string nickname, string message)
         {
-
+            string username = HttpContext.Current.User.Identity.Name; 
+            Task saveMsg = new Task(() => DatabaseAccessor.Instance.SaveMsgToDatabase(Membership.GetUser(username), Membership.GetUser(nickname), message));
+            saveMsg.Start();
         }
 
         public void RefreshUsersList()
@@ -36,13 +46,30 @@ namespace Chat.Hubs
         public override Task OnConnected()
         {
             AddNewUserAndConnection();
-
             RefreshUsersList();
+            SendLastMessages();
             return base.OnConnected();
+        }
+        private void SendLastMessages()
+        {
+            string username = Context.Request.GetHttpContext().User.Identity.Name;
+
+            foreach (Message msg in DatabaseAccessor.Instance.LastMessages(Membership.GetUser(username), 20))
+            {
+                Clients.Caller.newMessage(msg.Sender.UserName, msg.Msg); //only freshly connected node, not client
+            }
         }
         public override Task OnDisconnected()
         {
-            string userName = Context.User.Identity.Name;
+            string userName = "";
+            try
+            {
+                userName = Context.User.Identity.Name;
+            }
+            catch (NullReferenceException)
+            {
+                base.OnDisconnected();
+            }
             string connectionId = Context.ConnectionId;
 
             User user;
