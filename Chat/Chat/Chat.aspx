@@ -66,6 +66,15 @@
             var message = document.getElementById('chatTextBox').value;
             myChatHub.server.send(message);
         }
+
+        $(document).ready(function() {
+            $('form input').keydown(function (event) {
+                if (event.keyCode == 13) {
+                    event.preventDefault();
+                    return false;
+                }
+            });
+        } );
     </script>
 </head>
 <body>
@@ -88,7 +97,7 @@
         <div class="row">
   <div class="col-lg-6">
     <div class="input-group">
-      <input  id="chatTextBox" type="text" class="form-control"/>
+      <input  id="chatTextBox" type="text" class="form-control" onkeydown="if (event.keyCode == 13) document.getElementById('sendButton').click(); "/>
       <span class="input-group-btn">
         <button id="sendButton" class="btn btn-info" type="button" onclick="onSendButtonClick()">Go!</button>
       </span>

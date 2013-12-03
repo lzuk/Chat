@@ -1,10 +1,6 @@
 ﻿using System;
 using System.Collections;
-using System.Collections.Generic;
 using System.Data.SqlClient;
-using System.Linq;
-using System.Security.Principal;
-using System.Web;
 using System.Web.Security;
 
 namespace Chat.Chat

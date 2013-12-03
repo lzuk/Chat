@@ -7,46 +7,46 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-namespace Chat {
+namespace Chat.Account {
     
     
-    public partial class Register {
+    public partial class Login {
         
         /// <summary>
-        /// form1 control.
+        /// loginForm control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlForm form1;
+        protected global::System.Web.UI.HtmlControls.HtmlForm loginForm;
         
         /// <summary>
-        /// nickBox control.
+        /// nickName control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText nickBox;
+        protected global::System.Web.UI.HtmlControls.HtmlInputText nickName;
         
         /// <summary>
-        /// mailBox control.
+        /// password control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputText mailBox;
+        protected global::System.Web.UI.HtmlControls.HtmlInputPassword password;
         
         /// <summary>
-        /// passwordBox control.
+        /// keepSigned control.
         /// </summary>
         /// <remarks>
         /// Auto-generated field.
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
-        protected global::System.Web.UI.HtmlControls.HtmlInputPassword passwordBox;
+        protected global::System.Web.UI.HtmlControls.HtmlInputCheckBox keepSigned;
         
         /// <summary>
         /// msg control.
@@ -56,11 +56,5 @@ namespace Chat {
         /// To modify move field declaration from designer file to code-behind file.
         /// </remarks>
         protected global::System.Web.UI.WebControls.Label msg;
-
-        private void EngageErrorBox(string txt)
-        {
-            msg.Visible = true;
-            msg.Text = txt;
-        }
     }
 }
