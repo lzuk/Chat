@@ -36,6 +36,11 @@
             addMsg(msg);    
         };
 
+        myChatHub.client.newPrivMessage = function (nickname, message) {
+            var msg = "Priv from: " + nickname + " - " + message;
+            addMsg(msg);    
+        };
+
         myChatHub.client.newUserList = function(userList) {
             var chatUserList = document.getElementById('chatUsers');
             chatUserList.value = "";
@@ -64,7 +69,15 @@
 
         function onSendButtonClick() {
             var message = document.getElementById('chatTextBox').value;
-            myChatHub.server.send(message);
+            if (message.substring(0, 2) == "->") {
+                var separated = message.split(' ');
+                var receiver = separated[0].replace('->', '');
+                message.replace('->', '');
+                message.replace(receiver ,'');
+                myChatHub.server.sendToSpecified(receiver, message);
+            } else {
+                myChatHub.server.send(message);
+            } 
         }
 
         $(document).ready(function() {
@@ -74,7 +87,8 @@
                     return false;
                 }
             });
-        } );
+        });
+
     </script>
 </head>
 <body>
@@ -90,6 +104,7 @@
     </div>
 
     <div>
+        
         <textarea id="chatUsers" cols="20" rows="5" readonly="readonly"></textarea> 
         <textarea id="chatResponses" cols="50" rows="5" readonly="readonly"></textarea>
         

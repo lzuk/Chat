@@ -27,10 +27,22 @@ namespace Chat.Hubs
         }
 
 
-        public void SendToSpecified(string nickname, string message)
+        public void SendToSpecified(string receiver, string message)
         {
-            string username = HttpContext.Current.User.Identity.Name; 
-            Task saveMsg = new Task(() => DatabaseAccessor.Instance.SaveMsgToDatabase(Membership.GetUser(username), Membership.GetUser(nickname), message));
+            if (HttpContext.Current.User == null && !HttpContext.Current.User.Identity.IsAuthenticated)
+                return;
+            string sender = HttpContext.Current.User.Identity.Name;
+
+            User user;
+            Users.TryGetValue(receiver, out user);
+
+            if (user != null)
+            {
+                Clients.Clients(user.ConnectionIds.ToList()).newPrivMessage(sender);
+            }
+
+            //Clients.Client()
+            Task saveMsg = new Task(() => DatabaseAccessor.Instance.SaveMsgToDatabase(Membership.GetUser(sender), Membership.GetUser(receiver), message));
             saveMsg.Start();
         }
 
@@ -56,7 +68,15 @@ namespace Chat.Hubs
 
             foreach (Message msg in DatabaseAccessor.Instance.LastMessages(Membership.GetUser(username), 20))
             {
-                Clients.Caller.newMessage(msg.Sender.UserName, msg.Msg); //only freshly connected node, not client
+                if (msg.Receiver == null)
+                {
+                    Clients.Caller.newMessage(msg.Sender.UserName, msg.Msg); //only freshly connected node, not client
+                }
+                else
+                {
+                    Clients.Caller.newPrivMessage(msg.Sender.UserName, msg.Msg);
+                }
+                
             }
         }
         public override Task OnDisconnected()

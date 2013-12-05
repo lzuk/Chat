@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Data.SqlClient;
 using System.Drawing;
 using System.Web.Security;
 
@@ -20,7 +21,19 @@ namespace Chat.Account
             string pass = password.Value;
             bool keepSignedB = keepSigned.Checked;
 
-            if (Membership.ValidateUser(nick, pass))
+            bool isValidated = false;
+            try
+            {
+                isValidated = Membership.ValidateUser(nick, pass);
+            }
+            catch (SqlException)
+            {
+                msg.Visible = true;
+                msg.ForeColor = Color.Red;
+                msg.Text = "Unable to connect to database";
+            }
+
+            if (isValidated)
             {   
                 FormsAuthentication.SetAuthCookie(nick, keepSignedB);
                 Response.Redirect("/default.aspx");
