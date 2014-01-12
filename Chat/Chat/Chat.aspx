@@ -27,7 +27,7 @@
             var chatResponsesJs = document.getElementById('chatResponses');
             chatResponsesJs.rows = chatResponsesJs.rows + 1;
             chatResponsesJs.scrollTop = chatResponsesJs.scrollHeight;
-            chatResponsesJs.value += msg + '\r\n';
+            chatResponsesJs.value = msg + '\r\n' + chatResponsesJs.value;
             syncBoxesSize();
         };
 
@@ -69,15 +69,7 @@
 
         function onSendButtonClick() {
             var message = document.getElementById('chatTextBox').value;
-            if (message.substring(0, 2) == "->") {
-                var separated = message.split(' ');
-                var receiver = separated[0].replace('->', '');
-                message.replace('->', '');
-                message.replace(receiver ,'');
-                myChatHub.server.sendToSpecified(receiver, message);
-            } else {
-                myChatHub.server.send(message);
-            } 
+            myChatHub.server.send(message);
         }
 
         $(document).ready(function() {
@@ -100,16 +92,9 @@
         </div>    
     </div>
     <div class="alert alert-info">
-        You are in a private chat with 
+        To create a new private mesage start with "\UserName message" 
     </div>
-
-    <div>
-        
-        <textarea id="chatUsers" cols="20" rows="5" readonly="readonly"></textarea> 
-        <textarea id="chatResponses" cols="50" rows="5" readonly="readonly"></textarea>
-        
-        <br/>
-        <div class="row">
+<div class="row">
   <div class="col-lg-6">
     <div class="input-group">
       <input  id="chatTextBox" type="text" class="form-control" onkeydown="if (event.keyCode == 13) document.getElementById('sendButton').click(); "/>
@@ -119,6 +104,11 @@
     </div><!-- /input-group -->
   </div><!-- /.col-lg-6 -->
 </div><!-- /.row -->
+       <br/> 
+
+    <div> 
+        <textarea id="chatUsers" cols="20" rows="5" readonly="readonly"></textarea> 
+        <textarea id="chatResponses" cols="50" rows="5" readonly="readonly"></textarea>
     </div>
     </form>
 </body>

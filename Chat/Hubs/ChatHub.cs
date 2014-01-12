@@ -21,14 +21,52 @@ namespace Chat.Hubs
             if (HttpContext.Current.User == null && !HttpContext.Current.User.Identity.IsAuthenticated)
                 return;
             string username = HttpContext.Current.User.Identity.Name;
-            Clients.All.newMessage(DateTime.Now.ToString(CultureInfo.InvariantCulture), username, message);
-
+            if (message.StartsWith("\\"))
+            {
+                string receiver;
+                try
+                {
+                    string[] words = message.Split(' ');
+                    if (words[0].StartsWith("\\") && words[0].Length > 1) //to prevent \ user_name
+                    {
+                        receiver = words[0];
+                        int iterations = 0;
+                        while (receiver.StartsWith("\\"))
+                        {
+                            receiver = receiver.Replace("\\", "");
+                            iterations += 2;
+                        }
+                        message = message.Remove(0, receiver.Length + iterations); //missing \ and space after username
+                        Clients.Caller.newPrivMessage(DateTime.Now.ToString(CultureInfo.InvariantCulture), username,
+                           message);
+                        SendToSpecified(receiver, message);
+                    }
+                    else
+                    {
+                        Clients.Caller.notifyFromServer("Wrong message format");
+                    }
+                }
+                catch (NullReferenceException)
+                {
+                    Clients.Caller.notifyFromServer("Wrong message format");
+                    return;
+                }
+                catch (ArgumentOutOfRangeException)
+                {
+                    Clients.Caller.notifyFromServer("Wrong message format");
+                    return;
+                }
+            }
+            else
+            {
+                Clients.All.newMessage(DateTime.Now.ToString(CultureInfo.InvariantCulture), username, message);
+            }
             Task saveMsg = new Task(() => DatabaseAccessor.Instance.SaveMsgToDatabase(Membership.GetUser(username), message));
             saveMsg.Start();
         }
 
 
-        public void SendToSpecified(string receiver, string message)
+        private void SendToSpecified(string receiver, string message)
         {
             if (HttpContext.Current.User == null && !HttpContext.Current.User.Identity.IsAuthenticated)
                 return;
