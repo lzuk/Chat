@@ -11,7 +11,6 @@ namespace Chat.Account
         {
 
         }
-        private const String ReturnUrlRegexPattern = @"\?ReturnUrl=.*$";
 
         protected void btnSubmit_Click(object sender, EventArgs e)
         {

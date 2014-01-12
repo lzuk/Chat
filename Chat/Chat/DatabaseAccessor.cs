@@ -11,14 +11,7 @@ namespace Chat.Chat
         private static string connectionString;
         public static DatabaseAccessor Instance
         {
-            get
-            {
-                if (databaseAccessor == null)
-                {
-                    databaseAccessor = new DatabaseAccessor();
-                }
-                return databaseAccessor;
-            }
+            get { return databaseAccessor ?? (databaseAccessor = new DatabaseAccessor()); }
         }
         private DatabaseAccessor()
         {
