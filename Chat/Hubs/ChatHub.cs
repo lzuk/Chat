@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Concurrent;
 using System.Collections.Generic;
+using System.Globalization;
 using System.Linq;
 using System.Threading.Tasks;
 using System.Web;
@@ -20,7 +21,7 @@ namespace Chat.Hubs
             if (HttpContext.Current.User == null && !HttpContext.Current.User.Identity.IsAuthenticated)
                 return;
             string username = HttpContext.Current.User.Identity.Name;
-            Clients.All.newMessage(username, message);
+            Clients.All.newMessage(DateTime.Now.ToString(CultureInfo.InvariantCulture), username, message);
 
             Task saveMsg = new Task(() => DatabaseAccessor.Instance.SaveMsgToDatabase(Membership.GetUser(username), message));
             saveMsg.Start();
@@ -70,11 +71,11 @@ namespace Chat.Hubs
             {
                 if (msg.Receiver == null)
                 {
-                    Clients.Caller.newMessage(msg.Sender.UserName, msg.Msg); //only freshly connected node, not client
+                    Clients.Caller.newMessage(msg.DateTime.ToString(CultureInfo.InvariantCulture), msg.Sender.UserName, msg.Msg); //only freshly connected node, not client
                 }
                 else
                 {
-                    Clients.Caller.newPrivMessage(msg.Sender.UserName, msg.Msg);
+                    Clients.Caller.newPrivMessage(msg.DateTime.ToString(CultureInfo.InvariantCulture), msg.Sender.UserName, msg.Msg);
                 }
                 
             }

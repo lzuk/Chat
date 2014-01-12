@@ -31,13 +31,13 @@
             syncBoxesSize();
         };
 
-        myChatHub.client.newMessage = function (nickname, message) {
-            var msg = nickname + " - " + message;
+        myChatHub.client.newMessage = function (time, nickname, message) {
+            var msg = time +": " + nickname + " - " + message;
             addMsg(msg);    
         };
 
-        myChatHub.client.newPrivMessage = function (nickname, message) {
-            var msg = "Priv from: " + nickname + " - " + message;
+        myChatHub.client.newPrivMessage = function (time, nickname, message) {
+            var msg = time + ": Priv from: " + nickname + " - " + message;
             addMsg(msg);    
         };
 
@@ -99,8 +99,8 @@
             <asp:Button ID="singOutButton" class="btn btn-danger" type="button" OnClick="Signout_Click" Text="Sign Out" runat="server" />
         </div>    
     </div>
-    <div data-bind="visible: isInPrivateChat" class="alert alert-info">
-        You are in a private chat with @@<span data-bind="text: privateChatUser"></span>! <a href="#" data-bind=" click: exitFromPrivateChat">Exit from private chat?</a>
+    <div class="alert alert-info">
+        You are in a private chat with 
     </div>
 
     <div>
