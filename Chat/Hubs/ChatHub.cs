@@ -37,7 +37,7 @@ namespace Chat.Hubs
                             iterations += 2;
                         }
                         message = message.Remove(0, receiver.Length + iterations); //missing \ and space after username
-                        Clients.Caller.newPrivMessage(DateTime.Now.ToString(CultureInfo.InvariantCulture), username,
+                        Clients.Caller.newPrivMessageTo(DateTime.Now.ToString(CultureInfo.InvariantCulture), receiver,
                            message);
                         SendToSpecified(receiver, message);
                     }
@@ -77,10 +77,10 @@ namespace Chat.Hubs
 
             if (user != null)
             {
-                Clients.Clients(user.ConnectionIds.ToList()).newPrivMessage(sender);
+                Clients.Clients(user.ConnectionIds.ToList()).newPrivMessage(DateTime.Now.ToString(CultureInfo.InvariantCulture), sender, message);
             }
 
-            //Clients.Client()
+            //Clients.Client() aaaaaaaaaaa
             Task saveMsg = new Task(() => DatabaseAccessor.Instance.SaveMsgToDatabase(Membership.GetUser(sender), Membership.GetUser(receiver), message));
             saveMsg.Start();
         }

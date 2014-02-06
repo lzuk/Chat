@@ -26,7 +26,7 @@
         addMsg = function (msg) {
             var chatResponsesJs = document.getElementById('chatResponses');
             chatResponsesJs.rows = chatResponsesJs.rows + 1;
-            chatResponsesJs.scrollTop = chatResponsesJs.scrollHeight;
+            chatResponsesJs.scrollTop = 0;
             chatResponsesJs.value = msg + '\r\n' + chatResponsesJs.value;
             syncBoxesSize();
         };
@@ -39,6 +39,10 @@
         myChatHub.client.newPrivMessage = function (time, nickname, message) {
             var msg = time + ": Priv from: " + nickname + " - " + message;
             addMsg(msg);    
+        };
+        myChatHub.client.newPrivMessageTo = function (time, nickname, message) {
+            var msg = time + ": Priv to: " + nickname + " - " + message;
+            addMsg(msg);
         };
 
         myChatHub.client.newUserList = function(userList) {
@@ -70,9 +74,10 @@
         function onSendButtonClick() {
             var message = document.getElementById('chatTextBox').value;
             myChatHub.server.send(message);
+            document.getElementById('chatTextBox').value = "";
         }
 
-        $(document).ready(function() {
+        $(document).ready(function () {
             $('form input').keydown(function (event) {
                 if (event.keyCode == 13) {
                     event.preventDefault();
